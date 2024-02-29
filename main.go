@@ -25,8 +25,6 @@ func main() {
 	flag.IntVar(&port, "p", 9999, "port to serve on")
 	flag.Parse()
 
-	fmt.Println(port)
-
 	target := "http://127.0.0.1:55235"
 	proxy, err := createReverseProxy(target)
 	if err != nil {
@@ -36,5 +34,5 @@ func main() {
 	http.Handle("/", proxy)
 
 	log.Printf("Starting reverse proxy server on port %d, forwarding requests to %s", port, target)
-	log.Fatal(http.ListenAndServe(fmt.Sprintf(":%d", port), nil))
+	log.Fatal(http.ListenAndServe(fmt.Sprintf("0.0.0.0:%d", port), nil))
 }
